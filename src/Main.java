@@ -1,5 +1,6 @@
 import cli.Cli;
 import cli.CommandHandler;
+import model.Expense;
 import service.ExpenseRepository;
 
 /**
@@ -11,7 +12,8 @@ public class Main {
         System.out.println("Starting BudgetBuddy...\n");
 
         // Manually create the main repository
-        ExpenseRepository mainRepository = new ExpenseRepository();
+        ExpenseRepository mainRepository = ExpenseRepository.getInstance();
+        System.out.println("Main ExpenseRepository initialized and created.\n");
 
         // Create command handler with the main repository
         CommandHandler commandHandler = new CommandHandler(mainRepository);

@@ -36,7 +36,7 @@ public class CommandHandler {
      */
     public void handleLoad(String filePath) {
         try {
-            CsvLoader loader = new CsvLoader();
+            CsvLoader loader = CsvLoader.getInstance();
             List<Expense> expenses = loader.loadFromFile(filePath);
 
             mainRepository.clear();
@@ -81,10 +81,7 @@ public class CommandHandler {
         try {
             YearMonth yearMonth = DateUtils.parseYearMonth(monthStr);
 
-            ExpenseRepository localRepo = new ExpenseRepository();
-            localRepo.addAll(mainRepository.findAll());
-
-            List<Expense> monthExpenses = localRepo.findByMonth(yearMonth);
+            List<Expense> monthExpenses = mainRepository.findByMonth(yearMonth);
             Summarizer summarizer = new Summarizer(monthExpenses);
 
             System.out.println("\nMonth: " + monthStr);
@@ -161,10 +158,7 @@ public class CommandHandler {
         try {
             TxtReportWriter writer = new TxtReportWriter();
 
-            ExpenseRepository exportRepo = new ExpenseRepository();
-            exportRepo.addAll(mainRepository.findAll());
-
-            writer.writeReport(outputPath, exportRepo);
+            writer.writeReport(outputPath, mainRepository);
         } catch (IOException e) {
             System.err.println("Error writing report: " + e.getMessage());
         }
@@ -179,10 +173,7 @@ public class CommandHandler {
         try {
             HtmlReportWriter writer = new HtmlReportWriter();
 
-            ExpenseRepository exportRepo = new ExpenseRepository();
-            exportRepo.addAll(mainRepository.findAll());
-
-            writer.writeReport(outputPath, exportRepo);
+            writer.writeReport(outputPath, mainRepository);
         } catch (IOException e) {
             System.err.println("Error writing report: " + e.getMessage());
         }

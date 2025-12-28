@@ -12,13 +12,31 @@ import java.util.stream.Collectors;
  */
 public class ExpenseRepository {
     private final List<Expense> expenses;
+    public static volatile ExpenseRepository instance;
 
     /**
      * Creates a new empty repository.
      */
-    public ExpenseRepository() {
+    private ExpenseRepository() {
         this.expenses = new ArrayList<>();
-        System.out.println("Created new ExpenseRepository instance");
+    }
+
+    // Singleton Pattern
+    public static ExpenseRepository getInstance()
+    {
+        ExpenseRepository result = instance;
+        if(result == null)
+        {
+            synchronized(ExpenseRepository.class)
+            {
+                result = instance;
+                if(result == null)
+                {
+                    instance = result =  new ExpenseRepository();
+                }
+            }
+        }
+        return result;
     }
 
     /**
