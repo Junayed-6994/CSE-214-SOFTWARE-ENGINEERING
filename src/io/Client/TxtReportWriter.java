@@ -1,4 +1,4 @@
-package io;
+package io.Client;
 
 import model.Expense;
 import service.ExpenseRepository;
@@ -9,12 +9,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+import io.AbstractFactory.Content;
+import io.AbstractProducts.Formatter;
+import io.AbstractProducts.Writer;
+import io.ConcreteFactories.TxtContent;
+
 /**
  * Writes plain-text expense reports using the Factory Method pattern.
  */
 public class TxtReportWriter {
     private Content content;
-    private BothFormatter formatter;
+    private Formatter formatter;
     private Writer writer;
 
     public TxtReportWriter() {

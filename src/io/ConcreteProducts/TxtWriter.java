@@ -1,4 +1,4 @@
-package io;
+package io.ConcreteProducts;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -6,13 +6,15 @@ import java.time.YearMonth;
 import java.util.List;
 import java.util.Map;
 
+import io.AbstractProducts.Formatter;
+import io.AbstractProducts.Writer;
 import model.Expense;
 import service.Summarizer;
 import util.TextUtils;
 
 public class TxtWriter implements Writer {
-    private BothFormatter format;
-    public TxtWriter(BothFormatter format) {
+    private Formatter format;
+    public TxtWriter(Formatter format) {
         this.format = format;
     }
 

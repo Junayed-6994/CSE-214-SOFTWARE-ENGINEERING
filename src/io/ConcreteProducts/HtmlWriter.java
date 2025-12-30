@@ -1,4 +1,4 @@
-package io;
+package io.ConcreteProducts;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -6,14 +6,16 @@ import java.time.YearMonth;
 import java.util.List;
 import java.util.Map;
 
+import io.AbstractProducts.Formatter;
+import io.AbstractProducts.Writer;
 import service.Summarizer;
 import model.Expense;
 
 public class HtmlWriter implements Writer
 {
-    private BothFormatter format;
+    private Formatter format;
 
-    public HtmlWriter(BothFormatter format) {
+    public HtmlWriter(Formatter format) {
         this.format = format;
     }
     @Override

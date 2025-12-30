@@ -1,14 +1,16 @@
-package io;
+package io.ConcreteProducts;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 
-public class BothFormatter implements Formatter 
+import io.AbstractProducts.Formatter;
+
+public class HtmlFormatter implements Formatter 
 {
     private final DateTimeFormatter dateFormatter;
     private final DateTimeFormatter monthFormatter;
 
-    public BothFormatter() {
+    public HtmlFormatter() {
         this.dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         this.monthFormatter = DateTimeFormatter.ofPattern("yyyy-MM");
     }

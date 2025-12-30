@@ -1,4 +1,4 @@
-package io;
+package io.Client;
 
 import service.ExpenseRepository;
 import java.io.IOException;

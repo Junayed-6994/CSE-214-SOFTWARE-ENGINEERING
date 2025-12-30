@@ -1,8 +1,8 @@
 package cli;
 
 import io.CsvLoader;
-import io.HtmlReportWriter;
-import io.TxtReportWriter;
+import io.Client.HtmlReportWriter;
+import io.Client.TxtReportWriter;
 import model.Expense;
 import service.ExpenseRepository;
 import service.Summarizer;

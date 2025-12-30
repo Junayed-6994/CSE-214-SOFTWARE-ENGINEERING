@@ -1,4 +1,4 @@
-package io;
+package io.AbstractProducts;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
