@@ -1,0 +1,144 @@
+
+Creational Pattern Key Indicators
+1. Factory Method Pattern
+Key Indicators:
+
+Need to create objects but don't know the exact type until runtime
+Subclasses decide which class to instantiate
+Single product creation (one object at a time)
+Keywords: "create based on type", "determine at runtime", "subclass decides"
+Example: createVehicle(String type) → returns Car, Bike, or Truck
+Structure:
+
+Creator (abstract) → defines factoryMethod()
+ConcreteCreator → implements factoryMethod() to return specific product
+Product (interface)
+ConcreteProduct
+2. Abstract Factory Pattern
+Key Indicators:
+
+Need to create families of related objects
+Objects must be compatible with each other
+Multiple products that work together
+Switching between entire product families
+Keywords: "family", "suite", "theme", "compatible products"
+Example: GUIFactory creates Button + Scrollbar + Window (all Windows-style OR all Mac-style)
+Structure:
+
+AbstractFactory → createProductA(), createProductB()
+ConcreteFactory1 → creates Family1 products
+ConcreteFactory2 → creates Family2 products
+3. Builder Pattern
+Key Indicators:
+
+Step-by-step construction of complex objects
+Same construction process creates different representations
+Director class controls the building sequence
+Object has many optional parts/configurations
+Keywords: "step-by-step", "director", "construct", "assemble", "build"
+Example: Building a house (foundation → walls → roof → interior)
+
+This is the Factory Method Pattern!
+
+Key Indicators:
+Single product creation: Creating one Transport object at a time
+Type determined at runtime: "based on the requested delivery mode"
+Flexible for new types: "may need to add new transport types in the future"
+Client doesn't know concrete class: Client just asks for "Road" or "Sea"
+Without modifying client code: New types added without changing how client requests
+Common interface: All transports implement Transport interface
+
+Why NOT other patterns?
+Builder: Would be for step-by-step construction (not needed here)
+Abstract Factory: Would be for creating families of related objects (we just need one transport at a time)
+Singleton: Would ensure only one instance (not relevant here)
+The phrase "creates and returns the appropriate object based on input" is the signature of Factory Method Pattern.
+
+Want the simple code? 🚚🚢
+
+when to use abstract in this problem
+
+1:04 AM
+When This Would Be Abstract Factory Instead:
+If the problem said you need to create families of related objects that work together, like:
+
+Example 1: Complete Delivery System
+Need to create:
+- Transport (Truck or Ship)
+- PackagingBox (CardboardBox or WoodenCrate)  
+- DeliveryDocument (Waybill or BillOfLading)
+
+And they must be COMPATIBLE:
+- Road delivery → Truck + CardboardBox + Waybill
+- Sea delivery → Ship + WoodenCrate + BillOfLading
+Example 2: Regional Logistics
+Need to create:
+- Transport
+- Driver
+- Fuel Type
+
+And they must match the region:
+- Asia operations → Truck + AsianDriver + Diesel
+- Europe operations → Train + EuropeanDriver + Electric
+Key Difference:
+Factory Method	Abstract Factory
+Creates ONE object	Creates MULTIPLE related objects
+"Give me a Transport"	"Give me Transport + Packaging + Document"
+Single product hierarchy	Family of products that work together
+
+Factory Method vs Abstract Factory - Clear Indicators
+Factory Method Pattern
+Use When:
+
+Creating ONE type of object at a time
+Need flexibility to add new types without changing client code
+Decision of "which class to instantiate" happens at runtime
+You have a single product hierarchy
+Indicators in Problem:
+
+"create the appropriate object based on type"
+"create and return the appropriate transport"
+"instantiate the correct object"
+Single interface/product mentioned (Transport, Payment, Document, etc.)
+Example:
+
+java
+Transport t = factory.createTransport("Road");  // ONE object
+t.deliver();
+Abstract Factory Pattern
+Use When:
+
+Creating FAMILIES of related objects that must work together
+Multiple products that need to be compatible with each other
+Need to ensure objects from the same family are used together
+You have multiple product hierarchies
+Indicators in Problem:
+
+Keywords: "family", "suite", "theme", "set", "compatible"
+"multiple components that work together"
+"consistent look and feel"
+"platform-specific" or "region-specific"
+Multiple interfaces/products mentioned together
+
+3. Builder Pattern
+Key Indicators:
+
+Step-by-step construction of complex objects
+Same construction process creates different representations
+Director class controls the building sequence
+Object has many optional parts/configurations
+Keywords: "step-by-step", "director", "construct", "assemble", "build"
+Example: Building a house (foundation → walls → roof → interior)
+
+Structure:
+Product → complex object being built
+Builder (interface) → buildPartA(), buildPartB()
+ConcreteBuilder → implements building steps
+Director → controls the sequence of building
+
+
+-----------------------------------------------------------------------------------------
+
+javac *.java
+cd ..        
+java Builder.Main
