@@ -15,18 +15,6 @@ public class RegistrarMediator {
         return instance;
     }
 
-    public boolean isStudentEnrolled(Course course, Student student) 
-    {
-        return course.getEnrolledStudents().contains(student);
-    }
-
-
-    public int getEnrolledCount(Course course) 
-    {
-        return course.getEnrolledStudents().size();
-    }
-
-
     public void enrollStudentInCourse(Student student, Course c) 
     {
         c.getState().tryEnroll(c, student, this);
@@ -38,15 +26,6 @@ public class RegistrarMediator {
         student.addEnrolledCourseDirect(course);
     }
 
-    public boolean isStudentInWaitlist(Course course, Student student) 
-    {
-        return course.getWaitlistedStudents().contains(student);
-    }
-
-    public int getWaitlistCount(Course course) 
-    {
-        return course.getWaitlistedStudents().size();
-    }
 
     public void waitlistStudentForCourse(Student student, Course c) 
     {
@@ -69,7 +48,7 @@ public class RegistrarMediator {
     {
         boolean changed = false;
         
-        if (isStudentEnrolled(course, student)) 
+        if (course.isStudentEnrolled(student)) 
         {
             course.getEnrolledStudents().remove(student);
             student.removeCourseDirect(course);
@@ -81,7 +60,7 @@ public class RegistrarMediator {
             
         } 
         
-        else if (isStudentInWaitlist(course, student)) 
+        else if (course.isStudentInWaitlist(student)) 
         {
             course.getWaitlistedStudents().remove(student);
             student.removeCourseDirect(course);
@@ -105,7 +84,7 @@ public class RegistrarMediator {
             return;
         }
         
-        if (getEnrolledCount(course) < course.getCapacity()) {
+        if (course.getEnrolledCount() < course.getCapacity()) {
             if (!course.getWaitlistedStudents().isEmpty()) {
                 Student promoted = course.getWaitlistedStudents().poll();
                 if (promoted != null) {
@@ -117,7 +96,7 @@ public class RegistrarMediator {
             }
             
             // Update state after promotion
-            if (getEnrolledCount(course) >= course.getCapacity()) {
+            if (course.getEnrolledCount() >= course.getCapacity()) {
                 course.setStatus(CourseStatus.FULL);
             }
         }
@@ -145,7 +124,7 @@ public class RegistrarMediator {
         //System.out.println(course.code + " transitioned FULL -> CLOSED");
         
         if (!course.getWaitlistedStudents().isEmpty()) {
-            int availableSlots = targetCapacity - getEnrolledCount(course);
+            int availableSlots = targetCapacity - course.getEnrolledCount();
             if (availableSlots > 0) {
                 Random random = new Random();
                 List<Student> waitlistCopy = new ArrayList<>(course.getWaitlistedStudents());

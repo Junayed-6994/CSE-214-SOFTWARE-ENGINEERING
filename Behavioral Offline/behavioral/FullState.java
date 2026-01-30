@@ -11,13 +11,13 @@ public class FullState implements CourseState {
     @Override
     public boolean addToWaitlist(Course course, Student student, RegistrarMediator mediator) {
 
-        if (mediator.isStudentEnrolled(course, student)) 
+        if (course.isStudentEnrolled(student)) 
         {
             System.out.println("Already enrolled; no need to waitlist: " + student.name + " for " + course.code);
             return false;
         }
 
-        if (mediator.isStudentInWaitlist(course, student)) 
+        if (course.isStudentInWaitlist(student)) 
         {
             System.out.println("Already waitlisted: " + student.name + " for " + course.code);
             return true;
@@ -35,7 +35,7 @@ public class FullState implements CourseState {
         if (dropped) 
         {
             // Recalculate status: FULL -> OPEN if space
-            if (mediator.getEnrolledCount(course) < course.getCapacity()) 
+            if (course.getEnrolledCount() < course.getCapacity()) 
             {
                 course.setStatus(CourseStatus.OPEN);
                 System.out.println(course.code + " status changed to OPEN due to available capacity.");
@@ -68,9 +68,9 @@ public class FullState implements CourseState {
     public void changeStatusInteractive(Course course, CourseStatus newStatus, Scanner scanner, RegistrarMediator mediator) {
         if (newStatus == CourseStatus.CLOSED) 
         {
-            if (mediator.getWaitlistCount(course) > 0) 
+            if (course.getWaitlistCount() > 0) 
             {
-                System.out.println(course.code + " has " + mediator.getWaitlistCount(course) + " student(s) on waitlist.");
+                System.out.println(course.code + " has " + course.getWaitlistCount() + " student(s) on waitlist.");
                 System.out.print("Do you want to increase capacity before closing? (Enter new capacity, or 0 to not increase): ");
                 try 
                 {
@@ -115,9 +115,4 @@ public class FullState implements CourseState {
         return CourseStatus.FULL;
     }
 
-    @Override
-    public boolean isVisibleToStudents() {
-        return true;
-    }
-    
 }

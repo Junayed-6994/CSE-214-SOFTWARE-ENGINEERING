@@ -52,8 +52,4 @@ public class DraftState implements CourseState {
         return CourseStatus.DRAFT;
     }
 
-    @Override
-    public boolean isVisibleToStudents() {
-        return false;
-    }
 }

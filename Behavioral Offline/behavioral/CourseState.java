@@ -7,6 +7,4 @@ public interface CourseState {
     void changeStatus(Course course, CourseStatus newStatus,RegistrarMediator mediator);
     void changeStatusInteractive(Course course, CourseStatus newStatus,Scanner scanner,RegistrarMediator mediator);
     CourseStatus getStatus();
-
-    boolean isVisibleToStudents();
 }

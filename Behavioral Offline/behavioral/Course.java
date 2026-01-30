@@ -41,7 +41,7 @@ public class Course {
     }
 
     public boolean isVisibleToStudents() {
-        return state.isVisibleToStudents();
+        return status != CourseStatus.DRAFT && status != CourseStatus.CANCELLED;
     }
 
     public void setStatus(CourseStatus newStatus) 
@@ -60,6 +60,16 @@ public class Course {
     CourseState getState() 
     {
         return state;   
+    }
+
+    boolean isStudentEnrolled(Student student) 
+    {
+        return enrolled.contains(student);
+    }
+
+    boolean isStudentInWaitlist(Student student) 
+    {
+        return waitlist.contains(student);  
     }
 
 

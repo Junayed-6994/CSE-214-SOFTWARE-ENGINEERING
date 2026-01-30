@@ -46,9 +46,5 @@ public class CancelledState implements CourseState {
         return CourseStatus.CANCELLED;
     }
 
-    @Override
-    public boolean isVisibleToStudents() {
-        return false;
-    }
 
 }
