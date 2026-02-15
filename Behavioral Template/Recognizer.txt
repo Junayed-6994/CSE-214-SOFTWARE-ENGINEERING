@@ -1,0 +1,119 @@
+When to Apply Which Pattern - Quick Guide
+1️⃣ Observer Pattern 🔔
+Use When:
+
+One-to-Many dependency - One object changes, many others need to update
+Event-driven systems - Multiple subscribers react to events
+Real-time updates - Live data needs to be pushed to multiple displays
+Publish-Subscribe - Loose coupling between publishers and subscribers
+
+Real Examples:
+
+📊 Stock price updates → Multiple widgets update
+📬 Message board → Multiple groups receive notifications
+🔔 News feed → Subscribers get notified
+📱 Social media → Followers get updates
+
+Key Indicator:
+
+"When X happens, multiple Y's need to be notified automatically"
+
+
+2️⃣ Mediator Pattern 🎯
+Use When:
+
+Complex many-to-many relationships - Objects need to communicate but shouldn't know each other
+Centralized control - One coordinator manages all interactions
+Reducing coupling - Components should be independent and reusable
+Communication hub needed - Like air traffic control
+
+Real Examples:
+
+🏠 Smart home hub → Devices coordinate through hub
+💬 Chat room → Users communicate via room
+✈️ Air traffic control → Planes communicate through tower
+🎮 Game controller → Players interact through server
+
+Key Indicator:
+
+"Objects need to talk to each other, but shouldn't know about each other directly"
+
+
+3️⃣ Strategy Pattern 💳
+Use When:
+
+Multiple algorithms for the same task - Need to switch between them at runtime
+Eliminating if-else chains - Different behaviors for different scenarios
+Runtime behavior selection - Customer chooses payment method, sort algorithm, etc.
+Open for extension - Easy to add new strategies
+
+Real Examples:
+
+💳 Payment methods → Credit card, BKash, Crypto
+🔄 Sorting algorithms → Quick sort, Merge sort, Bubble sort
+🚗 Navigation routes → Fastest, Shortest, Scenic
+📦 Shipping methods → Express, Standard, Economy
+
+Key Indicator:
+
+"Customer/User needs to choose one algorithm from multiple options at runtime"
+
+
+4️⃣ State Pattern 🚦
+Use When:
+
+Object behavior changes based on internal state
+Finite state machines - Traffic lights, order status, game character states
+State-specific behavior - Each state has different actions
+Valid transitions only - Can't skip states or go backwards
+
+Real Examples:
+
+🚦 Traffic light → Red, Yellow, Green (cycles through states)
+📦 Order tracking → Placed, Confirmed, Shipped, Delivered
+🎮 Game character → Idle, Walking, Running, Jumping
+📞 Phone call → Ringing, Connected, On Hold, Ended
+
+Key Indicator:
+
+"Object has multiple states, and behavior changes completely in each state"
+
+
+5️⃣ Template Method Pattern 📋
+Use When:
+
+Algorithm skeleton is fixed but some steps vary
+Common workflow with customizable steps
+Code reuse - Avoid duplicating similar code
+Inheritance-based - Parent defines structure, children customize
+
+Real Examples:
+
+☕ Beverage preparation → Boil water (same), Brew (different), Add condiments (different)
+📝 Exam system → Login (same), Show questions (different), Grade (different)
+🏗️ House construction → Foundation (same), Walls (different), Roof (different)
+📄 Report generation → Header (same), Body (different), Footer (same)
+
+Key Indicator:
+
+"Steps 1, 2, 4, 5 are always the same, but step 3 changes based on type"
+
+
+6️⃣ Command Pattern 🎮
+Use When:
+
+Encapsulate requests as objects - Actions become first-class objects
+Undo/Redo functionality needed
+Queue operations - Store commands for later execution
+Decouple sender from receiver - Button doesn't know what it controls
+
+Real Examples:
+
+🎮 Remote control → Buttons execute commands on devices
+⌨️ Text editor → Undo/Redo operations
+🍔 Restaurant orders → Waiter takes orders, chef executes
+🤖 Macro commands → Record and replay sequences
+
+Key Indicator:
+
+"Need to store, queue, or undo requests as objects"
