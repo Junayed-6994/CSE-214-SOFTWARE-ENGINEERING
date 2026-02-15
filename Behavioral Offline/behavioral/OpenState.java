@@ -5,18 +5,18 @@ public class OpenState implements CourseState {
     @Override
     public boolean tryEnroll(Course course, Student student, RegistrarMediator mediator) 
     {
-        if (course.isStudentEnrolled(student)) 
+        if (mediator.isStudentEnrolled(course, student)) 
         {
             System.out.println("Already enrolled: " + student.name + " in " + course.code);
             return true;
         }
         
-        if (course.getEnrolledCount() < course.getCapacity()) 
+        if (mediator.getEnrolledCount(course) < course.getCapacity()) 
         {
             mediator.addEnrolledStudent(course, student);
             System.out.println("Enrolled: " + student.name + " in " + course.code);
             
-            if (course.getEnrolledCount() >= course.getCapacity()) 
+            if (mediator.getEnrolledCount(course) >= course.getCapacity()) 
             {
                 course.setStatus(CourseStatus.FULL);
                 System.out.println(course.code + " is now FULL.");
@@ -74,5 +74,9 @@ public class OpenState implements CourseState {
         return CourseStatus.OPEN;
     }
 
+    @Override
+    public boolean isVisibleToStudents() {
+        return true;
+    }
 
 }

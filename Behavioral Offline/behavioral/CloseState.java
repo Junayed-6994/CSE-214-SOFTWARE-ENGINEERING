@@ -53,5 +53,9 @@ public class CloseState implements CourseState {
         return CourseStatus.CLOSED;
     }
 
+    @Override
+    public boolean isVisibleToStudents() {
+        return true;
+    }
 
 }

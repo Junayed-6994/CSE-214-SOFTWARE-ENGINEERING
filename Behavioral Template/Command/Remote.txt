@@ -1,0 +1,12 @@
+Command Design Pattern Problem
+Problem Statement:
+You are building a smart home remote control that can control different devices like lights, fans, and TVs. The remote has buttons,
+and each button can be programmed to execute different commands.
+Requirements:
+
+The remote should be able to turn devices ON/OFF
+Each button should execute a specific command
+Commands should be interchangeable (same button can control different devices)
+Should support undo functionality (reverse the last action)
+
+The system should decouple the button (invoker) from the actual device operations (receiver), making it easy to add new devices or commands without changing the remote control.

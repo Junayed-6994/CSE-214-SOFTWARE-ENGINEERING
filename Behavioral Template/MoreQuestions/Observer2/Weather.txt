@@ -1,0 +1,14 @@
+The weather forecasting application is a popular tool used by people all over the world to stay informed about 
+the weather conditions in their location.The application is designed to display the current weather conditions,
+as well as provide alerts for any severe weather that may be coming. One day, a user opens the application to 
+check the weather for their location. They see that it is currently sunny with a high of 30 degrees Celsius. 
+The user is pleased to see that the weather is nice, and they decide to plan their day accordingly. As the day goes on, 
+the weather data for the user's location begins to change. There is a possibility of a storm bringing with it heavy rain.. 
+The weather forecasting application notices the change and sends this new information to all of its users. The user's device should
+receive the information and show that it is now raining and the temperature is 20 degrees Celsius . 
+The application also sends an alert to the user, warning them of the severe weather condition. The weather forecasting application sends 
+information like this:- Weather condition (sunny/rainy/snowy)- Current Temperature (Any real value) 
+You can consider two cases as severe weather ● Possibility of Storm ● Possibility of heavy Snow 
+You must have an interface where you can manipulate the current weather condition. 
+And based on the provided weather condition you should inform the users. Your task is to implement the weather forecasting application 
+using an appropriate design pattern.

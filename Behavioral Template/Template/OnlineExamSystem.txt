@@ -1,0 +1,18 @@
+Problem Statement:
+You are building an online exam system for a university. 
+The system needs to handle different types of exams: MCQ Exam and Programming Exam. 
+All exams follow the same procedure, but some steps are different:
+
+Common Steps (Same for all exams):
+Student logs in
+Exam instructions are displayed
+Timer starts
+Submit exam
+Logout
+
+Different Steps:
+
+MCQ Exam: Show multiple-choice questions, Auto-grade immediately
+Programming Exam: Show coding problems, Run test cases and grade
+
+The exam flow should remain fixed, but question display and grading logic should be customizable.
