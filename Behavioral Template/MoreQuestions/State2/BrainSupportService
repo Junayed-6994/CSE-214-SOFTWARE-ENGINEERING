@@ -1,0 +1,288 @@
+package BrainSupport;
+
+// Context Class - BrainSupportService
+class BrainSupportService {
+    private SubscriptionState currentState;
+    private SubscriptionState stateBeforeLux; // To remember state before Lux activation
+    private String patientId;
+    
+    public BrainSupportService(String patientId) {
+        this.patientId = patientId;
+        this.currentState = new CommonState(); // Start with Common tier
+        this.stateBeforeLux = null;
+    }
+    
+    public void setState(SubscriptionState state) {
+        this.currentState = state;
+    }
+    
+    public void saveStateBeforeLux() {
+        this.stateBeforeLux = this.currentState;
+    }
+    
+    public SubscriptionState getStateBeforeLux() {
+        return this.stateBeforeLux;
+    }
+    
+    public void travelCheck(int km) {
+        System.out.println("\n🚶 Patient " + patientId + " traveling " + km + " km...");
+        currentState.checkCoverage(this, km);
+    }
+    
+    public void activateLux(int hours) {
+        System.out.println("\n⚡ Activating Lux tier for " + hours + " hours...");
+        saveStateBeforeLux();
+        currentState.activateLux(this, hours);
+    }
+    
+    public void setMood(String mood) {
+        System.out.println("\n😊 Setting mood to: " + mood);
+        currentState.setMood(mood);
+    }
+    
+    public void promote() {
+        System.out.println("\n⬆️  Promoting subscription tier...");
+        currentState.promote(this);
+    }
+    
+    public void demote() {
+        System.out.println("\n⬇️  Demoting subscription tier...");
+        currentState.demote(this);
+    }
+    
+    public void printCurrentTier() {
+        currentState.printTier();
+    }
+}
+
+// State Interface
+interface SubscriptionState {
+    void checkCoverage(BrainSupportService service, int km);
+    void activateLux(BrainSupportService service, int hours);
+    void setMood(String mood);
+    void promote(BrainSupportService service);
+    void demote(BrainSupportService service);
+    void printTier();
+    int getCoverageRadius();
+}
+
+// Concrete State 1 - Common Tier
+class CommonState implements SubscriptionState {
+    private static final int COVERAGE_RADIUS = 10;
+    
+    @Override
+    public void printTier() {
+        System.out.println("📱 Current Tier: COMMON (Coverage: 0-10 km)");
+    }
+    
+    @Override
+    public int getCoverageRadius() {
+        return COVERAGE_RADIUS;
+    }
+    
+    @Override
+    public void checkCoverage(BrainSupportService service, int km) {
+        if (km <= COVERAGE_RADIUS) {
+            System.out.println("✅ STABLE - Patient is within coverage range");
+        } else {
+            System.out.println("⚠️  UNSTABLE - Patient has blacked out!");
+            System.out.println("🚨 ALERT: Bring patient back into coverage immediately!");
+        }
+    }
+    
+    @Override
+    public void activateLux(BrainSupportService service, int hours) {
+        service.setState(new LuxState());
+        System.out.println("✅ Lux tier activated for " + hours + " hours");
+        
+        // Simulate time passing
+        try {
+            Thread.sleep(hours * 1000); // Using seconds as hours for demo
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        
+        // Return to Common
+        service.setState(new CommonState());
+        System.out.println("⏰ Lux period ended - Returned to COMMON tier");
+    }
+    
+    @Override
+    public void setMood(String mood) {
+        System.out.println("❌ Mood control unavailable.");
+    }
+    
+    @Override
+    public void promote(BrainSupportService service) {
+        service.setState(new PlusState());
+        System.out.println("✅ Promoted to PLUS tier");
+    }
+    
+    @Override
+    public void demote(BrainSupportService service) {
+        System.out.println("⚠️  Already at COMMON tier - No change");
+    }
+}
+
+// Concrete State 2 - Plus Tier
+class PlusState implements SubscriptionState {
+    private static final int COVERAGE_RADIUS = 50;
+    
+    @Override
+    public void printTier() {
+        System.out.println("📱 Current Tier: PLUS (Coverage: 0-50 km)");
+    }
+    
+    @Override
+    public int getCoverageRadius() {
+        return COVERAGE_RADIUS;
+    }
+    
+    @Override
+    public void checkCoverage(BrainSupportService service, int km) {
+        if (km <= COVERAGE_RADIUS) {
+            System.out.println("✅ STABLE - Patient is within coverage range");
+        } else {
+            System.out.println("⚠️  UNSTABLE - Patient has blacked out!");
+            System.out.println("🚨 ALERT: Bring patient back into coverage immediately!");
+        }
+    }
+    
+    @Override
+    public void activateLux(BrainSupportService service, int hours) {
+        service.setState(new LuxState());
+        System.out.println("✅ Lux tier activated for " + hours + " hours");
+        
+        // Simulate time passing
+        try {
+            Thread.sleep(hours * 1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        
+        // Return to Plus
+        service.setState(new PlusState());
+        System.out.println("⏰ Lux period ended - Returned to PLUS tier");
+    }
+    
+    @Override
+    public void setMood(String mood) {
+        System.out.println("❌ Mood control unavailable.");
+    }
+    
+    @Override
+    public void promote(BrainSupportService service) {
+        service.setState(new LuxState());
+        System.out.println("✅ Promoted to LUX tier");
+    }
+    
+    @Override
+    public void demote(BrainSupportService service) {
+        service.setState(new CommonState());
+        System.out.println("✅ Demoted to COMMON tier");
+    }
+}
+
+// Concrete State 3 - Lux Tier
+class LuxState implements SubscriptionState {
+    private static final int COVERAGE_RADIUS = 50;
+    
+    @Override
+    public void printTier() {
+        System.out.println("📱 Current Tier: LUX (Coverage: 0-50 km + Mood Control)");
+    }
+    
+    @Override
+    public int getCoverageRadius() {
+        return COVERAGE_RADIUS;
+    }
+    
+    @Override
+    public void checkCoverage(BrainSupportService service, int km) {
+        if (km <= COVERAGE_RADIUS) {
+            System.out.println("✅ STABLE - Patient is within coverage range");
+        } else {
+            System.out.println("⚠️  UNSTABLE - Patient has blacked out!");
+            System.out.println("🚨 ALERT: Bring patient back into coverage immediately!");
+        }
+    }
+    
+    @Override
+    public void activateLux(BrainSupportService service, int hours) {
+        System.out.println("⚠️  Already in LUX tier - No change");
+    }
+    
+    @Override
+    public void setMood(String mood) {
+        System.out.println("✅ Mood set to: " + mood.toUpperCase());
+    }
+    
+    @Override
+    public void promote(BrainSupportService service) {
+        System.out.println("⚠️  Already at LUX tier - No change");
+    }
+    
+    @Override
+    public void demote(BrainSupportService service) {
+        service.setState(new PlusState());
+        System.out.println("✅ Demoted to PLUS tier");
+    }
+}
+
+public class BrainSupportSimulator {
+    public static void main(String[] args) {
+        System.out.println("╔═══════════════════════════════════════════════╗");
+        System.out.println("║       BRAIN-SUPPORT SUBSCRIPTION SYSTEM      ║");
+        System.out.println("╚═══════════════════════════════════════════════╝");
+        
+        BrainSupportService patient = new BrainSupportService("P-001");
+        
+        // Initial state
+        patient.printCurrentTier();
+        
+        // Test Common tier coverage
+        patient.travelCheck(5);   // Within range
+        patient.travelCheck(15);  // Out of range - UNSTABLE
+        patient.travelCheck(0);   // Back in coverage
+        
+        // Test mood control on Common (should fail)
+        patient.setMood("happy");
+        
+        // Promote to Plus
+        patient.promote();
+        patient.printCurrentTier();
+        patient.travelCheck(30);  // Within Plus range
+        patient.travelCheck(60);  // Out of range - UNSTABLE
+        patient.travelCheck(0);   // Back in coverage
+        
+        // Promote to Lux
+        patient.promote();
+        patient.printCurrentTier();
+        patient.travelCheck(40);  // Within Lux range
+        
+        // Test mood control on Lux (should work)
+        patient.setMood("calm");
+        patient.setMood("happy");
+        patient.setMood("exhausted");
+        
+        // Demote back to Plus
+        patient.demote();
+        patient.printCurrentTier();
+        
+        // Test mood control on Plus (should fail)
+        patient.setMood("happy");
+        
+        // Test activateLux from Plus (2 seconds as demo)
+        patient.activateLux(2);
+        patient.printCurrentTier();
+        
+        // During Lux activation, test mood
+        System.out.println("\n--- Testing during temporary Lux activation ---");
+        patient.promote(); // Back to Lux permanently
+        patient.activateLux(1); // Test activating Lux while in Lux
+        
+        System.out.println("\n╔═══════════════════════════════════════════════╗");
+        System.out.println("║           END OF SIMULATION                  ║");
+        System.out.println("╚═══════════════════════════════════════════════╝");
+    }
+}
