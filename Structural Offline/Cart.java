@@ -79,31 +79,33 @@ public class Cart {
         CartDiscount cartDiscount = new CartDiscount(this);
         cartDiscount.displayDetails();
 
-        double total_discount_amount = 0;
+        // double total_discount_amount = 0;
 
         Discount overallDiscount = new MultiModuleDiscount(this, cartDiscount);
         if(overallDiscount.evaluateEligibility())
         {
             System.out.println("You have got a discount of $" + overallDiscount.effectiveDiscount() + " on your cart due to purchasing 2 or more modules!");
-            total_discount_amount += overallDiscount.effectiveDiscount();
+            // total_discount_amount += overallDiscount.effectiveDiscount();
         }
 
-        overallDiscount = new SpecialDiscount(this, cartDiscount);
+        overallDiscount = new SpecialDiscount(this, overallDiscount);
         if(overallDiscount.evaluateEligibility())
         {
             System.out.println("You have got a discount of $" + overallDiscount.effectiveDiscount() + " on your cart due to purchasing items with total duration of 5 or more hours!");
-            total_discount_amount += overallDiscount.effectiveDiscount();
+            // total_discount_amount += overallDiscount.effectiveDiscount();
         }
 
-        overallDiscount = new DevelopingCountryDiscount(this, cartDiscount);
+        overallDiscount = new DevelopingCountryDiscount(this, overallDiscount);
         if(overallDiscount.evaluateEligibility())
         {
             System.out.println("You have got a discount of $" + overallDiscount.effectiveDiscount() + " on your cart due to being from a developing country!");
-            total_discount_amount += overallDiscount.effectiveDiscount();
+            // total_discount_amount += overallDiscount.effectiveDiscount();
         }
 
-        double final_price_after_discounts = cartDiscount.calculatePrice() - total_discount_amount;
-        System.out.println("Final Price after all applicable discounts: $" + final_price_after_discounts);
+        // double final_price_after_discounts = cartDiscount.calculatePrice() - total_discount_amount;
+        // System.out.println("Final Price after all applicable discounts: $" + final_price_after_discounts);
+
+        System.out.println("Final Price after all applicable discounts: $" + overallDiscount.calculatePrice());
 
     }
 
