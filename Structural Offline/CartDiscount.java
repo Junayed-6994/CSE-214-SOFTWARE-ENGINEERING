@@ -28,7 +28,8 @@ public class CartDiscount implements CourseComponent {
     public void displayDetails()
     {
         System.out.println("Cart Summary:");
-        System.out.println("Total Duration: " + calculateDuration() + " hours");
-        System.out.println("Total Price: $" + calculatePrice());
+        System.out.println("Total Duration of the cart: " + calculateDuration() + " hours");
+        System.out.println("Total Price of the cart: $" + calculatePrice());
+        System.out.println("------------------------------");
     }
 }

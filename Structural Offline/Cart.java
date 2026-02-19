@@ -14,9 +14,9 @@ public class Cart {
 
     public void addItems(CourseComponent item) 
     {
-        if( !(item instanceof Lesson || item instanceof Module || item instanceof Course) )
+        if( !(item instanceof Lesson || item instanceof Module || item instanceof Course || item instanceof ModuleComponent) )
         {
-            throw new IllegalArgumentException("Only Lessons ,Courses and Modules can be added to the cart.");
+            throw new IllegalArgumentException("Only Lessons, Courses, Modules, or decorated modules can be added to the cart.");
         }
 
         contents.add(item);
@@ -58,7 +58,7 @@ public class Cart {
         int count = 0;
         for (CourseComponent item : contents) 
         {
-            if (item instanceof Module) 
+            if (item instanceof Module || item instanceof ModuleComponent) 
             {
                 count++;
             }
@@ -104,8 +104,10 @@ public class Cart {
 
         // double final_price_after_discounts = cartDiscount.calculatePrice() - total_discount_amount;
         // System.out.println("Final Price after all applicable discounts: $" + final_price_after_discounts);
+        System.out.println("------------------------------");
 
         System.out.println("Final Price after all applicable discounts: $" + overallDiscount.calculatePrice());
+        System.out.println("-------------------------------");
 
     }
 

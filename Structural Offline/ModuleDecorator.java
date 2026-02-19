@@ -1,9 +1,9 @@
-public abstract class ModuleDecorator extends Module{
-    protected Module wrappedModule;
+public abstract class ModuleDecorator implements ModuleComponent
+{
+    protected ModuleComponent wrappedModule;
 
-    public ModuleDecorator(Module module) 
+    public ModuleDecorator(ModuleComponent module) 
     {
-        super(module.getName());
         this.wrappedModule = module;
     }
 
@@ -30,8 +30,4 @@ public abstract class ModuleDecorator extends Module{
     {
         wrappedModule.displayDetails();
     }
-
-    
-
-
 }

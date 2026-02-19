@@ -1,60 +1,43 @@
-import java.util.ArrayList;
-import java.util.List;
-
-public class Course implements CourseComponent
+public class Course extends AbstractComposite
 {
-    private final String name;
-    private final List<Lesson> lessons;
-    
     public Course(String name) 
     {
-        this.name = name;
-        this.lessons = new ArrayList<>();
+        super(name);
     }
 
-    public void addLesson(Lesson lesson) 
+    public void addLesson(CourseComponent component) 
     {
-        lessons.add(lesson);
+        if (component instanceof Lesson) 
+        {
+            addComponent(component);
+        } 
+        else 
+        {
+            throw new IllegalArgumentException("Only Lesson components can be added to a Course.");
+        }
     }
 
-    public void removeLesson(Lesson lesson) 
+    public void removeLesson(CourseComponent component) 
     {
-        lessons.remove(lesson);
+        removeComponent(component);
     }
 
-    public List<Lesson> getLessons() 
-    {
-        return new ArrayList<>(lessons);
-    }
-
-    @Override
-    public double calculatePrice() 
-    {
-        return lessons.stream().mapToDouble(Lesson::calculatePrice).sum();
-    }
-
-    @Override
-    public double calculateDuration() 
-    {
-        return lessons.stream().mapToDouble(Lesson::calculateDuration).sum();
-    }
-
-    @Override
-    public String getName() 
-    {
-        return name;
-    }
+    // List<CourseComponent> getLessons() 
+    // {
+    //     return getComponents();
+    // }
 
     @Override
     public void displayDetails() 
     {
         System.out.println("Course: " + name);
-        for (Lesson lesson : lessons) 
+        for (CourseComponent component : components) 
         {
-            lesson.displayDetails();
+            component.displayDetails();
         }
-        System.out.println("Total Duration: " + calculateDuration() + " hours");
-        System.out.println("Total Price: $" + calculatePrice());
+        System.out.println("Total Course Duration: " + calculateDuration() + " hours");
+        System.out.println("Total Course Price: $" + calculatePrice());
+        System.out.println("-----------------------------");
     }
 
 }

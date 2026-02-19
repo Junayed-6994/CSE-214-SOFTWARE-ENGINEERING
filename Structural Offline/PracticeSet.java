@@ -1,8 +1,8 @@
-public class PracticeSet extends  AddOns{
+public class PracticeSet extends ModuleDecorator{
 
     private final double price = 10.0;
 
-    public PracticeSet(Module module) 
+    public PracticeSet(ModuleComponent module) 
     {
         super(module);
     }
@@ -17,7 +17,8 @@ public class PracticeSet extends  AddOns{
     public void displayDetails() 
     {
         super.displayDetails();
-        System.out.println("Added Practice Set: $" + price);
+        System.out.println("Added Practice Set: $" + price + " on  module " + wrappedModule.getName());
+        System.out.println("-----------------------------");
     }
     
 }

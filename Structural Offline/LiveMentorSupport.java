@@ -1,8 +1,8 @@
-public class LiveMentorSupport extends AddOns {
+public class LiveMentorSupport extends ModuleDecorator {
 
     private final double price = 20.0;
 
-    public LiveMentorSupport(Module module) 
+    public LiveMentorSupport(ModuleComponent module) 
     {
         super(module);
     }
@@ -17,7 +17,8 @@ public class LiveMentorSupport extends AddOns {
     public void displayDetails() 
     {
         super.displayDetails();
-        System.out.println("Added Live Mentor Support: $" + price);
+        System.out.println("Added Live Mentor Support: $" + price + " on module " + wrappedModule.getName());
+        System.out.println("-----------------------------");
     }
     
 }
