@@ -2,7 +2,6 @@ package AbstractFactory;
 
 import java.util.Scanner;
 
-import javax.sound.sampled.SourceDataLine;
 
 //AP 1
 interface Processor{
